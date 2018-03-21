@@ -19,10 +19,13 @@ namespace RecycleProject.Model.Interfaces
         /// Положение точки
         /// </summary>
         ILocation Location { get; set; }
-
         /// <summary>
         /// Типы принимаемых отходов
         /// </summary>
         RecycleType[] Types { get; set; }
+        /// <summary>
+        /// Компания
+        /// </summary>
+        ICompany Company { get; set; }
     }
 }

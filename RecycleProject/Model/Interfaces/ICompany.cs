@@ -35,5 +35,10 @@ namespace RecycleProject.Model.Interfaces
         /// График работы
         /// </summary>
         CompanyGraphics[] CompanyGraphicses { get; set; }
+
+        /// <summary>
+        /// Точки размещения компании
+        /// </summary>
+        IRecyclePoint[] RecyclePoints { get; set; }
     }
 }

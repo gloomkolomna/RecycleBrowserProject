@@ -12,5 +12,6 @@ namespace RecycleProject.Model
         public string Email { get; set; }
         public RecycleType[] RecycleTypes { get; set; }
         public CompanyGraphics[] CompanyGraphicses { get; set; }
+        public IRecyclePoint[] RecyclePoints { get; set; }
     }
 }
