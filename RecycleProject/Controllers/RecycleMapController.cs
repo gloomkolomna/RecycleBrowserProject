@@ -21,6 +21,13 @@ namespace RecycleProject.Controllers
                 Phone = "+7 987 654 32 10",
                 CompanyGraphicses = new[] { CompanyGraphics.Monday, CompanyGraphics.Tuesday },
                 RecycleTypes = new[] { RecycleType.Appliances, RecycleType.Batteries, RecycleType.Bulbs },
+                Adress = new Adress()
+                {
+                    Index = 140408,
+                    City = "Коломна",
+                    Street = "Центральная",
+                    Home = "8 Б"
+                }
             };
 
             IRecyclePoint point = new RecyclePoint()

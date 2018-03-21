@@ -16,6 +16,10 @@ namespace RecycleProject.Model.Interfaces
         /// </summary>
         string Description { get; set; }
         /// <summary>
+        /// Адрес
+        /// </summary>
+        IAdress Adress { get; set; }
+        /// <summary>
         /// Телефон
         /// </summary>
         string Phone { get; set; }

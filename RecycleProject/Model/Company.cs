@@ -3,10 +3,11 @@ using RecycleProject.Model.Interfaces;
 
 namespace RecycleProject.Model
 {
-    public class Company : ICompany
+    internal class Company : ICompany
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public IAdress Adress { get; set; }
         public string Phone { get; set; }
         public string Web { get; set; }
         public string Email { get; set; }
