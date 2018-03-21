@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RecycleProject.Model;
+using RecycleProject.Model.Enums;
 using RecycleProject.Model.Interfaces;
 
 namespace RecycleProject.Controllers
@@ -24,7 +25,8 @@ namespace RecycleProject.Controllers
                 {
                     Latitude = 0d,
                     Longitude = 1d
-                }
+                },
+                Types = new[] { RecycleType.Appliances, RecycleType.Batteries, RecycleType.Bulbs }
             };
 
             return Json(point);
