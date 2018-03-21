@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RecycleProject.Model;
+using RecycleProject.Model.Interfaces;
 
 namespace RecycleProject.Controllers
 {
@@ -15,7 +16,7 @@ namespace RecycleProject.Controllers
         [HttpGet]
         public JsonResult GetPoint()
         {
-            RecyclePoint point = new RecyclePoint()
+            IRecyclePoint point = new RecyclePoint()
             {
                 Name = "First",
                 Description = "First Point in first Core application.",

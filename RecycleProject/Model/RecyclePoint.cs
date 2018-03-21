@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RecycleProject.Model.Interfaces;
 
 namespace RecycleProject.Model
 {
-    public class RecyclePoint
+    internal class RecyclePoint : IRecyclePoint
     {
         public RecyclePoint()
         {
@@ -13,7 +14,7 @@ namespace RecycleProject.Model
         }
 
         public string Name { get; set; }
-        public Location Location { get; set; }
+        public ILocation Location { get; set; }
         public string Description { get; set; }
     }
 }
