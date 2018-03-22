@@ -10,7 +10,12 @@ namespace RecycleProject
 {
     public class Repository : IRepository
     {
-        RecycleContext _dbContext = new RecycleContext();
+        private RecycleContext _dbContext;
+
+        public Repository(RecycleContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public void AddCompany(Company company)
         {

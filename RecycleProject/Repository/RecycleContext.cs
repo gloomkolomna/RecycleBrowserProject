@@ -10,12 +10,10 @@ namespace RecycleProject
 {
     public class RecycleContext : DbContext
     {
+        public RecycleContext(DbContextOptions<RecycleContext> options)
+            : base(options) { }
+
         public DbSet<Company> Companies { get; set; }
         public DbSet<RecyclePoint> RecyclePoints { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionbuilder)
-        {
-            optionbuilder.UseSqlite(@"Data Source=recycle.db");
-        }
     }
 }
