@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using RecycleProject.Model.Enums;
 using RecycleProject.Model.Interfaces;
 
 namespace RecycleProject.Model
 {
+    [Table("Company")]
     public class Company
     {
         [Key]

@@ -8,7 +8,7 @@ using RecycleProject.Model;
 
 namespace RecycleProject
 {
-    public class RecycleContext: DbContext
+    public class RecycleContext : DbContext
     {
         public DbSet<Company> Companies { get; set; }
         public DbSet<RecyclePoint> RecyclePoints { get; set; }

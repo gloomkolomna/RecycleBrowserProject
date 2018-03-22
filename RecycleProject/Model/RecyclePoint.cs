@@ -6,6 +6,7 @@ using RecycleProject.Model.Interfaces;
 
 namespace RecycleProject.Model
 {
+    [Table("RecyclePoint")]
     public class RecyclePoint
     {
         [Key]

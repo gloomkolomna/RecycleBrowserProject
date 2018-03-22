@@ -60,10 +60,7 @@ namespace RecycleProject
 
         public RecyclePoint GetRecyclePoint(int id)
         {
-            if (_dbContext.RecyclePoints != null && _dbContext.RecyclePoints.Any())
-                return _dbContext.RecyclePoints.FirstOrDefault(item => item.Id == id);
-
-            return null;
+            return _dbContext.RecyclePoints.FirstOrDefault(item => item.Id == id);
         }
 
         public IEnumerable<RecyclePoint> GetRecyclePoints()
