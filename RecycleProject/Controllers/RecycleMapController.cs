@@ -12,8 +12,8 @@ namespace RecycleProject.Controllers
         [HttpGet]
         public JsonResult GetPoint(int id)
         {
-            IRecyclePoint currentPoint = null;
-            using (Repository repo = new Repository())
+            RecyclePoint currentPoint = null;
+            using (var repo = new Repository())
             {
                 currentPoint = repo.GetRecyclePoint(id);
             }

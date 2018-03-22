@@ -4,12 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RecycleProject.Model;
 
 namespace RecycleProject
 {
     public class RecycleContext: DbContext
     {
-        public DbSet<ICompany> Companies { get; set; }
-        public DbSet<IRecyclePoint> RecyclePoints { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<RecyclePoint> RecyclePoints { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionbuilder)
+        {
+            optionbuilder.UseSqlite(@"Data Source=recycle.db");
+        }
     }
 }

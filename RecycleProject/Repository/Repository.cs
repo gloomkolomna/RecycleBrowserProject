@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RecycleProject.Model;
 
 namespace RecycleProject
 {
@@ -11,7 +12,7 @@ namespace RecycleProject
     {
         RecycleContext _dbContext = new RecycleContext();
 
-        public void AddCompany(ICompany company)
+        public void AddCompany(Company company)
         {
             var tmpCompany = _dbContext.RecyclePoints.Find(company);
             if (tmpCompany == null)
@@ -21,7 +22,17 @@ namespace RecycleProject
             }
         }
 
-        public void AddRecyclePoint(IRecyclePoint point)
+        public RecyclePoint ModifityRecyclePoint(RecyclePoint point)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Company ModifityCompany(Company company)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddRecyclePoint(RecyclePoint point)
         {
             var tmpPoint = _dbContext.RecyclePoints.Find(point);
             if (tmpPoint == null)
@@ -37,22 +48,25 @@ namespace RecycleProject
             _dbContext = null;
         }
 
-        public IEnumerable<ICompany> GetCompanies()
+        public IEnumerable<Company> GetCompanies()
         {
             return _dbContext.Companies;
         }
 
-        public ICompany GetCompany(int id)
+        public Company GetCompany(int id)
         {
             return _dbContext.Companies.FirstOrDefault(item => item.Id == id);
         }
 
-        public IRecyclePoint GetRecyclePoint(int id)
+        public RecyclePoint GetRecyclePoint(int id)
         {
-            return _dbContext.RecyclePoints.FirstOrDefault(item => item.Id == id);
+            if (_dbContext.RecyclePoints != null && _dbContext.RecyclePoints.Any())
+                return _dbContext.RecyclePoints.FirstOrDefault(item => item.Id == id);
+
+            return null;
         }
 
-        public IEnumerable<IRecyclePoint> GetRecyclePoints()
+        public IEnumerable<RecyclePoint> GetRecyclePoints()
         {
             return _dbContext.RecyclePoints;
         }

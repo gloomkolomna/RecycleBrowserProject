@@ -1,9 +1,12 @@
-﻿using RecycleProject.Model.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using RecycleProject.Model.Interfaces;
 
 namespace RecycleProject.Model
 {
-    internal class Adress : IAdress
+    public class Adress
     {
+        [Key]
+        public int Id { get; set; }
         public int Index { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
