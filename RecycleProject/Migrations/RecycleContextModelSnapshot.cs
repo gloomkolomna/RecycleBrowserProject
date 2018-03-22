@@ -85,7 +85,7 @@ namespace RecycleProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Дщсфешщт");
+                    b.ToTable("Location");
                 });
 
             modelBuilder.Entity("RecycleProject.Model.RecyclePoint", b =>

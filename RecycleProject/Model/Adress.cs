@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using RecycleProject.Model.Interfaces;
 
 namespace RecycleProject.Model
 {
+    [Table("Adress")]
     public class Adress
     {
         [Key]

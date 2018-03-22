@@ -10,7 +10,7 @@ using System;
 namespace RecycleProject.Migrations
 {
     [DbContext(typeof(RecycleContext))]
-    [Migration("20180322192406_InitialCreate")]
+    [Migration("20180322193457_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -86,7 +86,7 @@ namespace RecycleProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Дщсфешщт");
+                    b.ToTable("Location");
                 });
 
             modelBuilder.Entity("RecycleProject.Model.RecyclePoint", b =>

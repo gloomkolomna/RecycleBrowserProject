@@ -8,7 +8,7 @@ using RecycleProject.Model.Interfaces;
 
 namespace RecycleProject.Model
 {
-    [Table("Дщсфешщт")]
+    [Table("Location")]
     public class Location
     {
         [Key]
