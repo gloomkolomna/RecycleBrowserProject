@@ -43,7 +43,7 @@ namespace RecycleProject.Controllers
                 Company = company
             };
 
-            company.RecyclePoints = new[] { point };
+            //company.RecyclePoints = new[] { point };
 
             return Json(point);
         }
