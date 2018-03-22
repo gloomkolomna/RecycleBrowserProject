@@ -1,6 +1,6 @@
 ﻿namespace RecycleProject.Model.Enums
 {
-    public enum CompanyGraphics
+    public enum Days
     {
         /// <summary>
         /// Понедельник

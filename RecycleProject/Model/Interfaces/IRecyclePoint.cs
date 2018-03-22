@@ -1,4 +1,5 @@
 ﻿using RecycleProject.Model.Enums;
+using System.Collections.Generic;
 
 namespace RecycleProject.Model.Interfaces
 {
@@ -7,14 +8,7 @@ namespace RecycleProject.Model.Interfaces
     /// </summary>
     public interface IRecyclePoint
     {
-        /// <summary>
-        /// Название точки
-        /// </summary>
-        string Name { get; set; }
-        /// <summary>
-        /// Описание точки
-        /// </summary>
-        string Description { get; set; }
+        int Id { get; set; }
         /// <summary>
         /// Положение точки
         /// </summary>
@@ -22,7 +16,10 @@ namespace RecycleProject.Model.Interfaces
         /// <summary>
         /// Типы принимаемых отходов
         /// </summary>
-        RecycleType[] Types { get; set; }
+        IEnumerable<IRecycleType> Types { get; set; }
+
+        IEnumerable<Days> WorkDays { get; set; }
+
         /// <summary>
         /// Компания
         /// </summary>

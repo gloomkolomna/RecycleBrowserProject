@@ -10,42 +10,72 @@ namespace RecycleProject.Controllers
     public class RecycleMapController : Controller
     {
         [HttpGet]
-        public JsonResult GetPoint()
+        public JsonResult GetPoint(int id)
         {
-            ICompany company = new Company()
+            IRecyclePoint currentPoint = null;
+            using (Repository repo = new Repository())
             {
-                Name = "Рога и копыта",
-                Description = "Просто описание компании",
-                Email = "aaa@aa.aa",
-                Web = "aa.aa",
-                Phone = "+7 987 654 32 10",
-                CompanyGraphicses = new[] { CompanyGraphics.Monday, CompanyGraphics.Tuesday },
-                RecycleTypes = new[] { RecycleType.Appliances, RecycleType.Batteries, RecycleType.Bulbs },
-                Adress = new Adress()
+                currentPoint = repo.GetRecyclePoint(id);
+            }
+                /*ICompany company = new Company()
                 {
-                    Index = 140408,
-                    City = "Коломна",
-                    Street = "Центральная",
-                    Home = "8 Б"
-                }
-            };
+                    Name = "Рога и копыта",
+                    Description = "Просто описание компании",
+                    Contact = new Contact
+                    {
+                        Email = "aaa@aa.aa",
+                        Web = "aa.aa",
+                        Phone = "+7 987 654 32 10",
+                        Adress = new Adress()
+                        {
+                            Index = 140408,
+                            City = "Коломна",
+                            Street = "Центральная",
+                            Home = "8 Б"
+                        }
+                    },
+                    RecycleTypes = new[]
+                    {
+                        new RecycleType
+                        {
+                             Name= "Plastic"
+                        },
+                         new RecycleType
+                        {
+                             Name= "Batteries"
+                        },
+                         new RecycleType
+                        {
+                             Name= "Bulbs"
+                        }
+                    }
+                };*/
 
-            IRecyclePoint point = new RecyclePoint()
-            {
-                Name = "First",
-                Description = "First Point in first Core application.",
-                Location = new Location
+                /*IRecyclePoint point = new RecyclePoint()
                 {
-                    Latitude = 0d,
-                    Longitude = 1d
+                    Location = new Location
+                    {
+                        Latitude = 0d,
+                        Longitude = 1d
+                    },
+                    Types = new[]
+                    {
+                    new RecycleType
+                    {
+                         Name= "Plastic"
+                    },
+                     new RecycleType
+                    {
+                         Name= "Batteries"
+                    }
                 },
-                Types = new[] { RecycleType.Appliances, RecycleType.Batteries, RecycleType.Bulbs },
-                Company = company
-            };
+                    Company = company,
+                    WorkDays = new[] { Days.Monday, Days.Tuesday },
+                };*/
 
             //company.RecyclePoints = new[] { point };
 
-            return Json(point);
+            return Json(currentPoint);
         }
     }
 }
