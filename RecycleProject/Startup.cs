@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using RecycleProject.Interfaces;
 
 namespace RecycleProject
@@ -27,7 +21,7 @@ namespace RecycleProject
         {
             services.AddMvc();
 
-            services.AddDbContextPool<RecycleContext>(options => options.UseSqlite("Data Source=recycle.db"));
+            services.AddDbContextPool<RecycleContext>(options => options.UseSqlite("Data Source=./App_Data/recycle.db"));
             services.AddTransient<IRepository, Repository>();
         }
 

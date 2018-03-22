@@ -49,8 +49,7 @@ namespace RecycleProject
 
         public void Dispose()
         {
-            _dbContext.Dispose();
-            _dbContext = null;
+
         }
 
         public IEnumerable<Company> GetCompanies()
