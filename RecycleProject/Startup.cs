@@ -27,7 +27,7 @@ namespace RecycleProject
         {
             services.AddMvc();
 
-            services.AddDbContext<RecycleContext>(options => options.UseSqlite("Data Source=recycle.db"));
+            services.AddDbContextPool<RecycleContext>(options => options.UseSqlite("Data Source=recycle.db"));
             services.AddTransient<IRepository, Repository>();
         }
 
