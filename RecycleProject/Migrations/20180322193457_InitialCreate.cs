@@ -25,7 +25,7 @@ namespace RecycleProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Дщсфешщт",
+                name: "Location",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -35,7 +35,7 @@ namespace RecycleProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Дщсфешщт", x => x.Id);
+                    table.PrimaryKey("PK_Location", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,9 +100,9 @@ namespace RecycleProject.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_RecyclePoint_Дщсфешщт_LocationId",
+                        name: "FK_RecyclePoint_Location_LocationId",
                         column: x => x.LocationId,
-                        principalTable: "Дщсфешщт",
+                        principalTable: "Location",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -178,7 +178,7 @@ namespace RecycleProject.Migrations
                 name: "Company");
 
             migrationBuilder.DropTable(
-                name: "Дщсфешщт");
+                name: "Location");
 
             migrationBuilder.DropTable(
                 name: "Contact");
