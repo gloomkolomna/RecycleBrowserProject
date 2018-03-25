@@ -31,12 +31,34 @@ namespace RecycleProject
 
         public RecyclePoint ModifityRecyclePoint(RecyclePoint point)
         {
-            throw new NotImplementedException();
+            var oldPoint = _dbContext.RecyclePoints.Find(point);
+            if (oldPoint != null)
+            {
+                _dbContext.RecyclePoints.Remove(point);
+                _dbContext.RecyclePoints.Add(point);
+
+                _dbContext.SaveChanges();
+
+                return point;
+            }
+
+            return null;
         }
 
         public Company ModifityCompany(Company company)
         {
-            throw new NotImplementedException();
+            var oldCompany = _dbContext.Companies.Find(company);
+            if (oldCompany != null)
+            {
+                _dbContext.Companies.Remove(company);
+                _dbContext.Companies.Add(company);
+
+                _dbContext.SaveChanges();
+
+                return company;
+            }
+
+            return null;
         }
 
         public void AddRecyclePoint(RecyclePoint point)
@@ -51,7 +73,8 @@ namespace RecycleProject
 
         public void Dispose()
         {
-
+            _dbContext.Dispose();
+            _dbContext = null;
         }
 
         public IEnumerable<Company> GetCompanies()
