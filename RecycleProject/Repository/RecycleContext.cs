@@ -15,16 +15,16 @@ namespace RecycleProject
         public DbSet<Location> Locations { get; set; }
         public DbSet<RecycleType> RecycleTypes { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RecyclePoint>()
                 .HasOne(p => p.Location)
                 .WithOne()
                 .HasForeignKey("RecyclePoint", "LocationId")
-                .IsRequired(true);
+                .HasPrincipalKey("Id");
 
             base.OnModelCreating(modelBuilder);
-        }
+        }*/
         
     }
 }

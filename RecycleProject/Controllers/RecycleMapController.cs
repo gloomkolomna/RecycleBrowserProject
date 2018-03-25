@@ -25,5 +25,16 @@ namespace RecycleProject.Controllers
                 return Json(currentPoint);
             });
         }
+
+        [HttpGet]
+        [Route("get_company")]
+        public async Task<JsonResult> GetCompany(int id)
+        {
+            return await Task.Run(() =>
+            {
+                Company currentCompany = _repo.GetCompany(id);
+                return Json(currentCompany);
+            });
+        }
     }
 }
