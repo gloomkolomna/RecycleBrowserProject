@@ -1,4 +1,4 @@
-﻿using RecycleProject.Model.Enums;
+﻿using RecycleProject.Enums;
 using System.Collections.Generic;
 
 namespace RecycleProject.Interfaces.Models

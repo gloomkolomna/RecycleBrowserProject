@@ -1,4 +1,4 @@
-﻿using RecycleProject.Model.Enums;
+﻿using RecycleProject.Enums;
 using System.Collections.Generic;
 
 namespace RecycleProject.Interfaces.Models
@@ -18,7 +18,7 @@ namespace RecycleProject.Interfaces.Models
         /// </summary>
         IEnumerable<IRecycleType> Types { get; set; }
 
-        IEnumerable<Days> WorkDays { get; set; }
+        Days WorkDays { get; set; }
 
         /// <summary>
         /// Компания

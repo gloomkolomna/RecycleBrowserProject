@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using RecycleProject.Model.Interfaces;
+using RecycleProject.Interfaces.Models;
 
 namespace RecycleProject.Model
 {

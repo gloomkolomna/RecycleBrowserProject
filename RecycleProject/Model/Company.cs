@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using RecycleProject.Model.Enums;
-using RecycleProject.Model.Interfaces;
+using RecycleProject.Enums;
+using RecycleProject.Interfaces.Models;
 
 namespace RecycleProject.Model
 {
