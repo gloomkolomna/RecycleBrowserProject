@@ -85,7 +85,6 @@ namespace RecycleProject
                 .Include(p => p.Contact)
                 .Include(p => p.Contact.Address)
                 .Include(p => p.RecycleTypes)
-                .Include(p => p.RecyclePoints)
                 .FirstOrDefault(item => item.Id == id);
         }
 

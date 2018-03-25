@@ -25,10 +25,5 @@ namespace RecycleProject.Interfaces.Models
         /// Типы принимаемых отходов
         /// </summary>
         IEnumerable<IRecycleType> RecycleTypes { get; set; }
-
-        /// <summary>
-        /// Точки размещения компании
-        /// </summary>
-        IEnumerable<IRecyclePoint> RecyclePoints { get; set; }
     }
 }
