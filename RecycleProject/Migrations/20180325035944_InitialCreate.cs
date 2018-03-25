@@ -9,11 +9,11 @@ namespace RecycleProject.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Adress",
+                name: "Address",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:AutoIncrement", true),
                     City = table.Column<string>(nullable: true),
                     Home = table.Column<string>(nullable: true),
                     Index = table.Column<int>(nullable: false),
@@ -21,7 +21,7 @@ namespace RecycleProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Adress", x => x.Id);
+                    table.PrimaryKey("PK_Address", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -29,7 +29,7 @@ namespace RecycleProject.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:AutoIncrement", true),
                     Latitude = table.Column<double>(nullable: false),
                     Longitude = table.Column<double>(nullable: false)
                 },
@@ -43,7 +43,7 @@ namespace RecycleProject.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:AutoIncrement", true),
                     AdressId = table.Column<int>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
@@ -53,9 +53,9 @@ namespace RecycleProject.Migrations
                 {
                     table.PrimaryKey("PK_Contact", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contact_Adress_AdressId",
+                        name: "FK_Contact_Address_AdressId",
                         column: x => x.AdressId,
-                        principalTable: "Adress",
+                        principalTable: "Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -65,7 +65,7 @@ namespace RecycleProject.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:AutoIncrement", true),
                     ContactId = table.Column<int>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true)
@@ -86,7 +86,7 @@ namespace RecycleProject.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:AutoIncrement", true),
                     CompanyId = table.Column<int>(nullable: true),
                     LocationId = table.Column<int>(nullable: true)
                 },
@@ -112,7 +112,7 @@ namespace RecycleProject.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:AutoIncrement", true),
                     CompanyId = table.Column<int>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
@@ -184,7 +184,7 @@ namespace RecycleProject.Migrations
                 name: "Contact");
 
             migrationBuilder.DropTable(
-                name: "Adress");
+                name: "Address");
         }
     }
 }

@@ -4,8 +4,8 @@ using RecycleProject.Model.Interfaces;
 
 namespace RecycleProject.Model
 {
-    [Table("Adress")]
-    public class Adress
+    [Table("Address")]
+    public class Address
     {
         [Key]
         public int Id { get; set; }

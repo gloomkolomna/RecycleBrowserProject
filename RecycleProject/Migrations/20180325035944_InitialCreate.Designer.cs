@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
+using MySql.Data.EntityFrameworkCore.Storage.Internal;
 using RecycleProject;
 using System;
 
 namespace RecycleProject.Migrations
 {
     [DbContext(typeof(RecycleContext))]
-    [Migration("20180322193457_InitialCreate")]
+    [Migration("20180325035944_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace RecycleProject.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011");
 
-            modelBuilder.Entity("RecycleProject.Model.Adress", b =>
+            modelBuilder.Entity("RecycleProject.Model.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -34,7 +34,7 @@ namespace RecycleProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Adress");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("RecycleProject.Model.Company", b =>
@@ -138,7 +138,7 @@ namespace RecycleProject.Migrations
 
             modelBuilder.Entity("RecycleProject.Model.Contact", b =>
                 {
-                    b.HasOne("RecycleProject.Model.Adress", "Adress")
+                    b.HasOne("RecycleProject.Model.Address", "Adress")
                         .WithMany()
                         .HasForeignKey("AdressId");
                 });

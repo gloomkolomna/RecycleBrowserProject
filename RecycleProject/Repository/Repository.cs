@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using RecycleProject.Model;
 
 namespace RecycleProject
@@ -15,6 +16,7 @@ namespace RecycleProject
         public Repository(RecycleContext dbContext)
         {
             _dbContext = dbContext;
+            dbContext.Database.EnsureCreated();
         }
 
         public void AddCompany(Company company)
