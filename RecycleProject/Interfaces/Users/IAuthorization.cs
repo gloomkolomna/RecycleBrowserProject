@@ -1,6 +1,6 @@
 ﻿using RecycleProject.Model.Enums;
 
-namespace RecycleProject.Model.Interfaces
+namespace RecycleProject.Interfaces.Model
 {
     public interface IAuthorization
     {

@@ -1,7 +1,7 @@
 ﻿using RecycleProject.Model.Enums;
 using System.Collections.Generic;
 
-namespace RecycleProject.Model.Interfaces
+namespace RecycleProject.Interfaces.Models
 {
     /// <summary>
     /// Пункт приема

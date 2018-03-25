@@ -1,9 +1,6 @@
-﻿using RecycleProject.Model.Interfaces;
+﻿using RecycleProject.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using RecycleProject.Model;
 
 namespace RecycleProject.Interfaces
 {

@@ -1,4 +1,4 @@
-﻿namespace RecycleProject.Model.Interfaces
+﻿namespace RecycleProject.Interfaces.Models
 {
     /// <summary>
     /// Положение

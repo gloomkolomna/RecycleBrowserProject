@@ -1,34 +1,38 @@
-﻿namespace RecycleProject.Model.Enums
+﻿using System;
+
+namespace RecycleProject.Enums
 {
+    [Flags]
     public enum Days
     {
+        None = 0x00,
         /// <summary>
         /// Понедельник
         /// </summary>
-        Monday,
+        Monday = 0x01,
         /// <summary>
         /// Вторник
         /// </summary>
-        Tuesday,
+        Tuesday = 0x02,
         /// <summary>
         /// Среда
         /// </summary>
-        Wednesday,
+        Wednesday = 0x04,
         /// <summary>
         /// Четверг
         /// </summary>
-        Thursday,
+        Thursday = 0x08,
         /// <summary>
         /// Пятница
         /// </summary>
-        Friday,
+        Friday = 0x10,
         /// <summary>
         /// Суббота
         /// </summary>
-        Saturday,
+        Saturday = 0x20,
         /// <summary>
         /// Воскресенье
         /// </summary>
-        Sunday
+        Sunday = 0x40
     }
 }

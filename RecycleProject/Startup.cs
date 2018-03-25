@@ -21,7 +21,7 @@ namespace RecycleProject
         {
             services.AddMvc();
 
-            services.AddDbContextPool<RecycleContext>(options => options.UseMySQL("server=localhost;database=recycle;user=root;password=Gloomrereirf123"));
+            services.AddDbContextPool<RecycleContext>(options => options.UseMySQL(Configuration.GetConnectionString("RecycleDbConnection")));
             services.AddTransient<IRepository, Repository>();
         }
 

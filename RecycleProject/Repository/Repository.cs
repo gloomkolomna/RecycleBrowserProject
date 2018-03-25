@@ -1,11 +1,7 @@
-﻿using RecycleProject.Model.Interfaces;
-using RecycleProject.Interfaces;
-using System;
+﻿using RecycleProject.Interfaces;
+using RecycleProject.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using RecycleProject.Model;
 
 namespace RecycleProject
 {

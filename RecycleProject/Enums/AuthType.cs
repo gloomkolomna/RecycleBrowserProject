@@ -1,4 +1,4 @@
-﻿namespace RecycleProject.Model.Enums
+﻿namespace RecycleProject.Enums
 {
     public enum AuthType
     {
