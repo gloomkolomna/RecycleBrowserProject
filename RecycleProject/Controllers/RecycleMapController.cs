@@ -16,12 +16,22 @@ namespace RecycleProject.Controllers
         }
 
         [HttpGet]
-        [Route("get_recyclepoint")]
+        [Route("get_recyclepoint_id")]
         public async Task<JsonResult> GetPoint(int id)
         {
             return await Task.Run(() =>
             {
                 RecyclePoint currentPoint = _repo.GetRecyclePoint(id);
+                return Json(currentPoint);
+            });
+        }
+
+        [Route("get_recyclepoint_location")]
+        public async Task<JsonResult> GetPoint(double lon, double lat)
+        {
+            return await Task.Run(() =>
+            {
+                RecyclePoint currentPoint = _repo.GetRecyclePoint(lon, lat);
                 return Json(currentPoint);
             });
         }
@@ -34,6 +44,36 @@ namespace RecycleProject.Controllers
             {
                 Company currentCompany = _repo.GetCompany(id);
                 return Json(currentCompany);
+            });
+        }
+
+        [HttpGet]
+        [Route("get_companies")]
+        public async Task<JsonResult> GetCompanies()
+        {
+            return await Task.Run(() =>
+            {
+                var companies = _repo.GetCompanies();
+                return Json(companies);
+            });
+        }
+
+        [HttpPost]
+        [Route("set_point")]
+        public async Task<JsonResult> SetPoint(double lon, double lat)
+        {
+            return await Task.Run(() =>
+            {
+                var point = new RecyclePoint()
+                {
+                    Location = new Location()
+                    {
+                        Latitude = lat,
+                        Longitude = lon
+                    }
+                };
+                _repo.AddRecyclePoint(point);
+                return Json(point);
             });
         }
     }

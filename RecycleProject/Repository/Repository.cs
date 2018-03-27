@@ -60,11 +60,18 @@ namespace RecycleProject
 
         public void AddRecyclePoint(RecyclePoint point)
         {
-            var tmpPoint = _dbContext.RecyclePoints.Find(point);
-            if (tmpPoint == null)
+            if (!_dbContext.RecyclePoints.Any())
             {
                 _dbContext.RecyclePoints.Add(point);
                 _dbContext.SaveChanges();
+            }
+            else
+            {
+                if (_dbContext.RecyclePoints.Find(point) == null)
+                {
+                    _dbContext.RecyclePoints.Add(point);
+                    _dbContext.SaveChanges();
+                }
             }
         }
 
@@ -72,6 +79,16 @@ namespace RecycleProject
         {
             _dbContext.Dispose();
             _dbContext = null;
+        }
+
+        public RecyclePoint GetRecyclePoint(double lon, double lat)
+        {
+            return _dbContext.RecyclePoints
+                .Include(p => p.Location)
+                .Include(s => s.Company)
+                .Include(p => p.Company.Contact)
+                .Include(p => p.Company.Contact.Address)
+                .FirstOrDefault(item => item.Location != null && item.Location.Latitude == lat && item.Location.Longitude == lon);
         }
 
         public IEnumerable<Company> GetCompanies()

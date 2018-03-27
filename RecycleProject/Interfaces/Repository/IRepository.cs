@@ -8,6 +8,7 @@ namespace RecycleProject.Interfaces
     {
         IEnumerable<RecyclePoint> GetRecyclePoints();
         RecyclePoint GetRecyclePoint(int id);
+        RecyclePoint GetRecyclePoint(double lon, double lat);
         IEnumerable<Company> GetCompanies();
         Company GetCompany(int id);
         void AddRecyclePoint(RecyclePoint point);
