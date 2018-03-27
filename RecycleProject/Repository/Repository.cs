@@ -67,7 +67,11 @@ namespace RecycleProject
             }
             else
             {
-                if (_dbContext.RecyclePoints.Find(point) == null)
+                var dbPoint = _dbContext.RecyclePoints.FirstOrDefault(item =>
+                    item.Location.Latitude == point.Location.Latitude &&
+                    item.Location.Longitude == point.Location.Longitude);
+
+                if (dbPoint == null)
                 {
                     _dbContext.RecyclePoints.Add(point);
                     _dbContext.SaveChanges();
