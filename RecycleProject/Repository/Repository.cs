@@ -18,11 +18,21 @@ namespace RecycleProject
 
         public void AddCompany(Company company)
         {
-            var tmpCompany = _dbContext.RecyclePoints.Find(company);
-            if (tmpCompany == null)
+            if (!_dbContext.Companies.Any())
             {
                 _dbContext.Companies.Add(company);
                 _dbContext.SaveChanges();
+            }
+            else
+            {
+                var dbCompany = _dbContext.Companies.FirstOrDefault(item =>
+                    item.Name == company.Name && item.Contact == company.Contact);
+
+                if (dbCompany == null)
+                {
+                    _dbContext.Companies.Add(company);
+                    _dbContext.SaveChanges();
+                }
             }
         }
 

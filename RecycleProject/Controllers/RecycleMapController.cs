@@ -76,5 +76,36 @@ namespace RecycleProject.Controllers
                 return Json(point);
             });
         }
+
+        [HttpPost]
+        [Route("set_company")]
+        public async Task<JsonResult> SetCompany(string name, string description, string phone, string web, string email, 
+            int index, string city, string street, string home)
+        {
+            return await Task.Run(() =>
+            {
+                var company = new Company()
+                {
+                    Name = name,
+                    Description = description,
+                    Contact = new Contact()
+                    {
+                        Email = email,
+                        Phone = phone,
+                        Web = web,
+                        Address = new Address()
+                        {
+                            City = city,
+                            Home = home,
+                            Index = index,
+                            Street = street
+                        }
+                    }
+                };
+
+                _repo.AddCompany(company);
+                return Json(company);
+            });
+        }
     }
 }
