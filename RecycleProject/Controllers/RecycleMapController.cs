@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using RecycleProject.Interfaces;
 using RecycleProject.Model;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace RecycleProject.Controllers
 {
@@ -60,18 +62,14 @@ namespace RecycleProject.Controllers
 
         [HttpPost]
         [Route("set_point")]
-        public async Task<JsonResult> SetPoint(double lon, double lat)
+        public async Task<JsonResult> SetPoint(string result)
         {
             return await Task.Run(() =>
             {
-                var point = new RecyclePoint()
-                {
-                    Location = new Location()
-                    {
-                        Latitude = lat,
-                        Longitude = lon
-                    }
-                };
+                var point = JsonConvert.DeserializeObject<RecyclePoint>(result);
+                if (point == null)
+                    throw new Exception("Error Recycle Point POST");
+
                 _repo.AddRecyclePoint(point);
                 return Json(point);
             });
@@ -79,29 +77,13 @@ namespace RecycleProject.Controllers
 
         [HttpPost]
         [Route("set_company")]
-        public async Task<JsonResult> SetCompany(string name, string description, string phone, string web, string email, 
-            int index, string city, string street, string home)
+        public async Task<JsonResult> SetCompany(string result)
         {
             return await Task.Run(() =>
             {
-                var company = new Company()
-                {
-                    Name = name,
-                    Description = description,
-                    Contact = new Contact()
-                    {
-                        Email = email,
-                        Phone = phone,
-                        Web = web,
-                        Address = new Address()
-                        {
-                            City = city,
-                            Home = home,
-                            Index = index,
-                            Street = street
-                        }
-                    }
-                };
+                var company = JsonConvert.DeserializeObject<Company>(result);
+                if (company == null)
+                    throw new Exception("Error Recycle Company POST");
 
                 _repo.AddCompany(company);
                 return Json(company);
