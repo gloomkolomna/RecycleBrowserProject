@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace RecycleProject.Model
 {
     [Table("Contact")]
-    public class Contact
+    public class Contact// : IContact
     {
         [Key]
         public int Id { get; set; }

@@ -9,7 +9,7 @@ using RecycleProject.Interfaces.Models;
 namespace RecycleProject.Model
 {
     [Table("Location")]
-    public class Location
+    public class Location// : ILocation
     {
         [Key]
         public int Id { get; set; }

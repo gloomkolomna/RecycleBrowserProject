@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecycleProject.Interfaces;
+using RecycleProject.Interfaces.Models;
 using RecycleProject.Model;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,7 +86,6 @@ namespace RecycleProject
                 .Include(p => p.Contact)
                 .Include(p => p.Contact.Address)
                 .Include(p => p.RecycleTypes)
-                .Include(p => p.RecyclePoints)
                 .FirstOrDefault(item => item.Id == id);
         }
 
@@ -94,8 +94,8 @@ namespace RecycleProject
             return _dbContext.RecyclePoints
                 .Include(p => p.Location)
                 .Include(s => s.Company)
-                .Include(p => p.Company.Contact)
-                .Include(p => p.Company.Contact.Address)
+                .ThenInclude(t => t.Contact)
+                .ThenInclude(c => c.Address)
                 .FirstOrDefault(item => item.Id == id);
         }
 

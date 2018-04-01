@@ -1,4 +1,5 @@
-﻿using RecycleProject.Model;
+﻿using RecycleProject.Interfaces.Models;
+using RecycleProject.Model;
 using System;
 using System.Collections.Generic;
 

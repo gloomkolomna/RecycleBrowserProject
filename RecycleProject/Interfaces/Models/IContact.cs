@@ -7,12 +7,10 @@ namespace RecycleProject.Interfaces.Models
 {
     public interface IContact
     {
+        int Id { get; set; }
         string Phone { get; set; }
         string Web { get; set; }
         string Email { get; set; }
-        /// <summary>
-        /// Адрес
-        /// </summary>
-        IAdress Adress { get; set; }
+        IAddress Address { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RecycleProject.Interfaces.Models;
 using RecycleProject.Model;
 
 namespace RecycleProject
@@ -17,11 +18,8 @@ namespace RecycleProject
 
         /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<RecyclePoint>()
-                .HasOne(p => p.Location)
-                .WithOne()
-                .HasForeignKey("RecyclePoint", "LocationId")
-                .HasPrincipalKey("Id");
+            modelBuilder.Entity<Company>()
+             .HasBaseType<IContact>();
 
             base.OnModelCreating(modelBuilder);
         }*/

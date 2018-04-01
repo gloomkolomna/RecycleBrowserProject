@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace RecycleProject.Model
 {
     [Table("RecycleType")]
-    public class RecycleType
+    public class RecycleType// : IRecycleType
     {
         [Key]
         public int Id { get; set; }

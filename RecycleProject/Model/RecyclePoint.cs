@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using RecycleProject.Enums;
+using RecycleProject.Interfaces.Models;
 
 namespace RecycleProject.Model
 {
     [Table("RecyclePoint")]
-    public class RecyclePoint
+    public class RecyclePoint// : IRecyclePoint
     {
         [Key]
         public int Id { get; set; }
