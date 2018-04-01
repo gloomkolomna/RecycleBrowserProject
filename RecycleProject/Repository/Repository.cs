@@ -99,6 +99,7 @@ namespace RecycleProject
         {
             return _dbContext.RecyclePoints
                 .Include(p => p.Location)
+                .Include(p => p.Types)
                 .Include(s => s.Company)
                 .Include(p => p.Company.Contact)
                 .Include(p => p.Company.Contact.Address)
@@ -124,6 +125,7 @@ namespace RecycleProject
             return _dbContext.RecyclePoints
                 .Include(p => p.Location)
                 .Include(s => s.Company)
+                .Include(p => p.Types)
                 .Include(p => p.Company.Contact)
                 .Include(p => p.Company.Contact.Address)
                 .FirstOrDefault(item => item.Id == id);
@@ -131,7 +133,12 @@ namespace RecycleProject
 
         public IEnumerable<RecyclePoint> GetRecyclePoints()
         {
-            return _dbContext.RecyclePoints;
+            return _dbContext.RecyclePoints
+                .Include(p => p.Location)
+                .Include(p => p.Types)
+                .Include(s => s.Company)
+                .Include(p => p.Company.Contact)
+                .Include(p => p.Company.Contact.Address);
         }
     }
 }

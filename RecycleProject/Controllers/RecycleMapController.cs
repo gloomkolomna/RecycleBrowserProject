@@ -18,6 +18,17 @@ namespace RecycleProject.Controllers
         }
 
         [HttpGet]
+        [Route("get_recyclepoint")]
+        public async Task<JsonResult> GetPoints()
+        {
+            return await Task.Run(() =>
+            {
+                var points= _repo.GetRecyclePoints();
+                return Json(points);
+            });
+        }
+
+        [HttpGet]
         [Route("get_recyclepoint_id")]
         public async Task<JsonResult> GetPoint(int id)
         {
