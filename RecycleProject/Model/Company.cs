@@ -16,6 +16,5 @@ namespace RecycleProject.Model
         public string Name { get; set; }
         public string Description { get; set; }
         public Contact Contact { get; set; }
-        public IEnumerable<RecycleType> RecycleTypes { get; set; }
     }
 }

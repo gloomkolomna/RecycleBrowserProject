@@ -14,7 +14,7 @@ namespace RecycleProject
         public Repository(RecycleContext dbContext)
         {
             _dbContext = dbContext;
-            dbContext.Database.EnsureCreated();
+            //dbContext.Database.EnsureCreated();
         }
 
         public void AddCompany(Company company)
@@ -85,13 +85,13 @@ namespace RecycleProject
             return _dbContext.Companies
                 .Include(p => p.Contact)
                 .Include(p => p.Contact.Address)
-                .Include(p => p.RecycleTypes)
                 .FirstOrDefault(item => item.Id == id);
         }
 
         public RecyclePoint GetRecyclePoint(int id)
         {
             return _dbContext.RecyclePoints
+                .Include(item => item.Categories)
                 .Include(p => p.Location)
                 .Include(s => s.Company)
                 .ThenInclude(t => t.Contact)
@@ -101,7 +101,19 @@ namespace RecycleProject
 
         public IEnumerable<RecyclePoint> GetRecyclePoints()
         {
-            return _dbContext.RecyclePoints;
+            return _dbContext
+                .RecyclePoints
+                .Include(loc => loc.Location)
+                .Include(category => category.Categories)
+                .Include(company => company.Company)
+                .ThenInclude(contact => contact.Contact)
+                .ThenInclude(address => address.Address)
+                .ToList();
+        }
+
+        public IEnumerable<Category> GetCategories()
+        {
+            return _dbContext.Categories.ToList();
         }
     }
 }

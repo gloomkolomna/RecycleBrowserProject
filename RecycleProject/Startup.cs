@@ -23,6 +23,16 @@ namespace RecycleProject
 
             services.AddDbContextPool<RecycleContext>(options => options.UseMySQL(Configuration.GetConnectionString("RecycleDbConnection")));
             services.AddTransient<IRepository, Repository>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", p =>
+                {
+                    p.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,7 +42,7 @@ namespace RecycleProject
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("AllowAll");
             app.UseMvc();
         }
     }

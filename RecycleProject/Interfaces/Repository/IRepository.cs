@@ -15,5 +15,6 @@ namespace RecycleProject.Interfaces
         void AddCompany(Company company);
         RecyclePoint ModifityRecyclePoint(RecyclePoint point);
         Company ModifityCompany(Company company);
+        IEnumerable<Category> GetCategories();
     }
 }

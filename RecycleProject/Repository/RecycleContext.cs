@@ -14,15 +14,30 @@ namespace RecycleProject
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Location> Locations { get; set; }
-        public DbSet<RecycleType> RecycleTypes { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Relationship> Relationships { get; set; }
 
-        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Company>()
-             .HasBaseType<IContact>();
+            modelBuilder.Entity<RecyclePoint>()
+                .HasMany(p => p.Categories)
+                .WithOne()
+                .HasForeignKey(k => k.Id);
+
+
+            modelBuilder.Entity<Relationship>()
+                .HasOne(h => h.RecyclePoint)
+                .WithMany()
+                .HasForeignKey(f => f.RecyclePointId)
+                .HasForeignKey(fk => fk.CategoryId);
+
+
+            /*modelBuilder.Entity<RecyclePoint>()
+                .HasMany(p => p.Categories
+                .HasForeignKey(t => t.Id);*/
 
             base.OnModelCreating(modelBuilder);
-        }*/
+        }
         
     }
 }

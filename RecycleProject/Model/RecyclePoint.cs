@@ -14,7 +14,7 @@ namespace RecycleProject.Model
         [Key]
         public int Id { get; set; }
         public Location Location { get; set; }
-        public IEnumerable<RecycleType> Types { get; set; }
+        public virtual IEnumerable<Category> Categories { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public Days WorkDays { get; set; }
         public Company Company { get; set; }
