@@ -7,13 +7,13 @@ using RecycleProject.Enums;
 
 namespace RecycleProject.Model
 {
-    [Table("RecyclePoint")]
-    public class RecyclePoint
+    [Table("Point")]
+    public class Point
     {
         [Key]
         public int Id { get; set; }
         public Location Location { get; set; }
-        public IEnumerable<RecycleType> Types { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public Days WorkDays { get; set; }
         public Company Company { get; set; }

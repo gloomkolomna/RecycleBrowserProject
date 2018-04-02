@@ -36,13 +36,13 @@ namespace RecycleProject
             }
         }
 
-        public RecyclePoint ModifityRecyclePoint(RecyclePoint point)
+        public Point ModifityRecyclePoint(Point point)
         {
-            var oldPoint = _dbContext.RecyclePoints.Find(point);
+            var oldPoint = _dbContext.Points.Find(point);
             if (oldPoint != null)
             {
-                _dbContext.RecyclePoints.Remove(point);
-                _dbContext.RecyclePoints.Add(point);
+                _dbContext.Points.Remove(point);
+                _dbContext.Points.Add(point);
 
                 _dbContext.SaveChanges();
 
@@ -68,22 +68,22 @@ namespace RecycleProject
             return null;
         }
 
-        public void AddRecyclePoint(RecyclePoint point)
+        public void AddRecyclePoint(Point point)
         {
-            if (!_dbContext.RecyclePoints.Any())
+            if (!_dbContext.Points.Any())
             {
-                _dbContext.RecyclePoints.Add(point);
+                _dbContext.Points.Add(point);
                 _dbContext.SaveChanges();
             }
             else
             {
-                var dbPoint = _dbContext.RecyclePoints.FirstOrDefault(item =>
+                var dbPoint = _dbContext.Points.FirstOrDefault(item =>
                     item.Location.Latitude == point.Location.Latitude &&
                     item.Location.Longitude == point.Location.Longitude);
 
                 if (dbPoint == null)
                 {
-                    _dbContext.RecyclePoints.Add(point);
+                    _dbContext.Points.Add(point);
                     _dbContext.SaveChanges();
                 }
             }
@@ -95,11 +95,11 @@ namespace RecycleProject
             _dbContext = null;
         }
 
-        public RecyclePoint GetRecyclePoint(double lon, double lat)
+        public Point GetRecyclePoint(double lon, double lat)
         {
-            return _dbContext.RecyclePoints
+            return _dbContext.Points
                 .Include(p => p.Location)
-                .Include(p => p.Types)
+                .Include(p => p.Categories)
                 .Include(s => s.Company)
                 .Include(p => p.Company.Contact)
                 .Include(p => p.Company.Contact.Address)
@@ -116,26 +116,25 @@ namespace RecycleProject
             return _dbContext.Companies
                 .Include(p => p.Contact)
                 .Include(p => p.Contact.Address)
-                .Include(p => p.RecycleTypes)
                 .FirstOrDefault(item => item.Id == id);
         }
 
-        public RecyclePoint GetRecyclePoint(int id)
+        public Point GetRecyclePoint(int id)
         {
-            return _dbContext.RecyclePoints
+            return _dbContext.Points
                 .Include(p => p.Location)
                 .Include(s => s.Company)
-                .Include(p => p.Types)
+                .Include(p => p.Categories)
                 .Include(p => p.Company.Contact)
                 .Include(p => p.Company.Contact.Address)
                 .FirstOrDefault(item => item.Id == id);
         }
 
-        public IEnumerable<RecyclePoint> GetRecyclePoints()
+        public IEnumerable<Point> GetRecyclePoints()
         {
-            return _dbContext.RecyclePoints
+            return _dbContext.Points
                 .Include(p => p.Location)
-                .Include(p => p.Types)
+                .Include(p => p.Categories)
                 .Include(s => s.Company)
                 .Include(p => p.Company.Contact)
                 .Include(p => p.Company.Contact.Address);

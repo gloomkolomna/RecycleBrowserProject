@@ -18,7 +18,7 @@ namespace RecycleProject.Controllers
         }
 
         [HttpGet]
-        [Route("get_recyclepoint")]
+        [Route("get_point")]
         public async Task<JsonResult> GetPoints()
         {
             return await Task.Run(() =>
@@ -29,22 +29,22 @@ namespace RecycleProject.Controllers
         }
 
         [HttpGet]
-        [Route("get_recyclepoint_id")]
+        [Route("get_point_id")]
         public async Task<JsonResult> GetPoint(int id)
         {
             return await Task.Run(() =>
             {
-                RecyclePoint currentPoint = _repo.GetRecyclePoint(id);
+                Point currentPoint = _repo.GetRecyclePoint(id);
                 return Json(currentPoint);
             });
         }
 
-        [Route("get_recyclepoint_location")]
+        [Route("get_point_location")]
         public async Task<JsonResult> GetPoint(double lon, double lat)
         {
             return await Task.Run(() =>
             {
-                RecyclePoint currentPoint = _repo.GetRecyclePoint(lon, lat);
+                Point currentPoint = _repo.GetRecyclePoint(lon, lat);
                 return Json(currentPoint);
             });
         }
@@ -77,7 +77,7 @@ namespace RecycleProject.Controllers
         {
             return await Task.Run(() =>
             {
-                var point = JsonConvert.DeserializeObject<RecyclePoint>(result);
+                var point = JsonConvert.DeserializeObject<Point>(result);
                 if (point == null)
                     throw new Exception("Error Recycle Point POST");
 

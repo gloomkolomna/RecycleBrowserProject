@@ -6,14 +6,14 @@ namespace RecycleProject.Interfaces
 {
     public interface IRepository: IDisposable
     {
-        IEnumerable<RecyclePoint> GetRecyclePoints();
-        RecyclePoint GetRecyclePoint(int id);
-        RecyclePoint GetRecyclePoint(double lon, double lat);
+        IEnumerable<Point> GetRecyclePoints();
+        Point GetRecyclePoint(int id);
+        Point GetRecyclePoint(double lon, double lat);
         IEnumerable<Company> GetCompanies();
         Company GetCompany(int id);
-        void AddRecyclePoint(RecyclePoint point);
+        void AddRecyclePoint(Point point);
         void AddCompany(Company company);
-        RecyclePoint ModifityRecyclePoint(RecyclePoint point);
+        Point ModifityRecyclePoint(Point point);
         Company ModifityCompany(Company company);
     }
 }

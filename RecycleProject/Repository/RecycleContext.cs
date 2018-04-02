@@ -9,18 +9,18 @@ namespace RecycleProject
             : base(options) { }
 
         public DbSet<Company> Companies { get; set; }
-        public DbSet<RecyclePoint> RecyclePoints { get; set; }
+        public DbSet<Point> Points { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Location> Locations { get; set; }
-        public DbSet<RecycleType> RecycleTypes { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<RecyclePoint>()
+            modelBuilder.Entity<Point>()
                 .HasOne(p => p.Location)
                 .WithOne()
-                .HasForeignKey("RecyclePoint", "LocationId")
+                .HasForeignKey("Point", "LocationId")
                 .HasPrincipalKey("Id");
 
             base.OnModelCreating(modelBuilder);

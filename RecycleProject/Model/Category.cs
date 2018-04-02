@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace RecycleProject.Model
 {
-    [Table("RecycleType")]
-    public class RecycleType
+    [Table("Category")]
+    public class Category
     {
         [Key]
         public int Id { get; set; }
