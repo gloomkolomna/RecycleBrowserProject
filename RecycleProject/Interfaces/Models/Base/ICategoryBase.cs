@@ -1,6 +1,6 @@
-﻿namespace RecycleProject.Interfaces.Models
+﻿namespace RecycleProject.Interfaces.Models.Base
 {
-    public interface IRecycleType
+    public interface ICategoryBase
     {
         int Id { get; set; }
         string Name { get; set; }

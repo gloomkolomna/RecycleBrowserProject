@@ -2,12 +2,14 @@
 using RecycleProject.Interfaces;
 using RecycleProject.Interfaces.Models;
 using RecycleProject.Model;
+using RecycleProject.Model.Entity;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RecycleProject
 {
-    public class Repository : IRepository
+    internal class Repository : IRepository
     {
         private RecycleContext _dbContext;
 
@@ -71,18 +73,28 @@ namespace RecycleProject
 
         public void Dispose()
         {
-            _dbContext.Dispose();
-            _dbContext = null;
+            //_dbContext.Dispose();
+            //_dbContext = null;
         }
 
-        public IEnumerable<Company> GetCompanies()
+        public async Task<IEnumerable<Company>> GetCompaniesAsync()
         {
-            return _dbContext.Companies;
+            var companies = await _dbContext
+                .Companies
+                .Include(contact => contact.Contact)
+                .ThenInclude(address => address.Address)
+                .ToListAsync();
+
+            var result = companies
+                .Select(company => (Company)company);
+
+            return result;
         }
 
         public Company GetCompany(int id)
         {
-            return _dbContext.Companies
+            return _dbContext
+                .Companies
                 .Include(p => p.Contact)
                 .Include(p => p.Contact.Address)
                 .FirstOrDefault(item => item.Id == id);
@@ -90,30 +102,54 @@ namespace RecycleProject
 
         public RecyclePoint GetRecyclePoint(int id)
         {
-            return _dbContext.RecyclePoints
-                .Include(item => item.Categories)
-                .Include(p => p.Location)
-                .Include(s => s.Company)
-                .ThenInclude(t => t.Contact)
-                .ThenInclude(c => c.Address)
+            var r = _dbContext
+                .RecyclePoints
+                .Include(point => point.Location)
+                .Include(point => point.Rels)
+                .ThenInclude(rel => rel.Category)
+                .Include(point => point.Company)
+                .ThenInclude(company => company.Contact)
+                .ThenInclude(contact => contact.Address)
                 .FirstOrDefault(item => item.Id == id);
+            return r;
         }
 
-        public IEnumerable<RecyclePoint> GetRecyclePoints()
+        public async Task<IEnumerable<RecyclePoint>> GetRecyclePointsAsync()
         {
-            return _dbContext
+            var res = await _dbContext
                 .RecyclePoints
+                .Include(r => r.Rels)
+                .ThenInclude(c => c.Category)
                 .Include(loc => loc.Location)
-                .Include(category => category.Categories)
                 .Include(company => company.Company)
                 .ThenInclude(contact => contact.Contact)
-                .ThenInclude(address => address.Address)
-                .ToList();
+                .ThenInclude(address => address.Address).ToListAsync();
+
+            var p = res.Select(point => (RecyclePoint)point);
+
+            return p;
         }
 
-        public IEnumerable<Category> GetCategories()
+        public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {
-            return _dbContext.Categories.ToList();
+            return await _dbContext.Categories.Select(category => (Category)category).ToListAsync();
+        }
+
+        public Category AddCategory(Category category)
+        {
+            if (category == null) return null;
+
+            if (category.Id == 0)
+            {
+                var tmp = _dbContext.Categories.Add(category);
+                int i = _dbContext.SaveChanges();
+                if (i > 0)
+                {
+                    category = tmp.Entity;
+                }
+            }
+
+            return category;
         }
     }
 }

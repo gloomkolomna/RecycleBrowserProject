@@ -1,20 +1,16 @@
-﻿using System.Collections;
+﻿using RecycleProject.Interfaces.Models;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using RecycleProject.Enums;
-using RecycleProject.Interfaces.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RecycleProject.Model
 {
-    [Table("Company")]
-    public class Company// : ICompany
+    public class Company: ICompany
     {
-        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Contact Contact { get; set; }
+        public IContact Contact { get; set; }
     }
 }

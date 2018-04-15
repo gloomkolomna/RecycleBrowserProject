@@ -1,40 +1,44 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecycleProject.Interfaces.Models;
-using RecycleProject.Model;
+using RecycleProject.Model.Entity;
 
 namespace RecycleProject
 {
-    public class RecycleContext : DbContext
+    internal class RecycleContext : DbContext
     {
         public RecycleContext(DbContextOptions<RecycleContext> options)
             : base(options) { }
 
-        public DbSet<Company> Companies { get; set; }
-        public DbSet<RecyclePoint> RecyclePoints { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Location> Locations { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Relationship> Relationships { get; set; }
+        public DbSet<CompanyEntity> Companies { get; set; }
+        public DbSet<RecyclePointEntity> RecyclePoints { get; set; }
+        public DbSet<AddressEntity> Addresses { get; set; }
+        public DbSet<ContactEntity> Contacts { get; set; }
+        public DbSet<LocationEntity> Locations { get; set; }
+        public DbSet<CategoryEntity> Categories { get; set; }
+        public DbSet<PointCategoryRelationship> Relationships { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<RecyclePoint>()
-                .HasMany(p => p.Categories)
-                .WithOne()
-                .HasForeignKey(k => k.Id);
 
+            modelBuilder
+                .Entity<PointCategoryRelationship>()
+                .HasKey(x => new { x.RecyclePointId, x.CategoryId });
 
-            modelBuilder.Entity<Relationship>()
-                .HasOne(h => h.RecyclePoint)
-                .WithMany()
-                .HasForeignKey(f => f.RecyclePointId)
-                .HasForeignKey(fk => fk.CategoryId);
+            modelBuilder
+                .Entity<RecyclePointEntity>()
+                .HasMany(x => x.Rels)
+                .WithOne(x => x.RecyclePoint)
+                .HasForeignKey(x => x.RecyclePointId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
-
-            /*modelBuilder.Entity<RecyclePoint>()
-                .HasMany(p => p.Categories
-                .HasForeignKey(t => t.Id);*/
+            modelBuilder
+                .Entity<CategoryEntity>()
+                .HasMany(x => x.Rels)
+                .WithOne(x => x.Category)
+                .HasForeignKey(x => x.CategoryId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }

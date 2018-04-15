@@ -2,8 +2,5 @@
 
 namespace RecycleProject.Interfaces.Models
 {
-    public interface IContact: IContactBase
-    {
-        IAddress Address { get; set; }
-    }
+    public interface ICategory: ICategoryBase { }
 }

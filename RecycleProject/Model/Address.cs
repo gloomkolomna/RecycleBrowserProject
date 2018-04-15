@@ -1,13 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using RecycleProject.Interfaces.Models;
+﻿using RecycleProject.Interfaces.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RecycleProject.Model
 {
-    [Table("Address")]
     public class Address : IAddress
     {
-        [Key]
         public int Id { get; set; }
         public string Street { get; set; }
         public string Home { get; set; }
