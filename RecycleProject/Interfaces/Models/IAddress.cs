@@ -3,7 +3,7 @@
 namespace RecycleProject.Interfaces.Models
 {
     /// <summary>
-    /// Положение
+    /// Адрес
     /// </summary>
-    public interface ILocation: ILocationBase { }
+    public interface IAddress: IAddressBase { }
 }

@@ -1,14 +1,15 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using RecycleProject.Enums;
 using RecycleProject.Interfaces;
+using RecycleProject.Interfaces.Models;
 using RecycleProject.Model;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace RecycleProject.Controllers
 {
     [Produces("application/json")]
-    [Route("api/RecycleMap")]
+    [Route("api/recycle_map")]
     public class RecycleMapController : Controller
     {
         private IRepository _repo;
@@ -18,39 +19,36 @@ namespace RecycleProject.Controllers
         }
 
         [HttpGet]
-        [Route("get_point")]
-        public async Task<JsonResult> GetPoints()
-        {
-            return await Task.Run(() =>
-            {
-                var points= _repo.GetRecyclePoints();
-                return Json(points);
-            });
-        }
-
-        [HttpGet]
-        [Route("get_point_id")]
+        [Route("recyclepoint")]
+        [Route("recyclepoint/{id}")]
         public async Task<JsonResult> GetPoint(int id)
         {
             return await Task.Run(() =>
             {
-                Point currentPoint = _repo.GetRecyclePoint(id);
-                return Json(currentPoint);
-            });
-        }
-
-        [Route("get_point_location")]
-        public async Task<JsonResult> GetPoint(double lon, double lat)
-        {
-            return await Task.Run(() =>
-            {
-                Point currentPoint = _repo.GetRecyclePoint(lon, lat);
+                RecyclePoint currentPoint = _repo.GetRecyclePoint(id);
                 return Json(currentPoint);
             });
         }
 
         [HttpGet]
-        [Route("get_company")]
+        [Route("recyclepoints")]
+        public async Task<JsonResult> GetPoints()
+        {
+            IEnumerable<RecyclePoint> points = await _repo.GetRecyclePointsAsync();
+            return Json(points);
+        }
+
+        [HttpGet]
+        [Route("categories")]
+        public async Task<JsonResult> GetCategories()
+        {
+            IEnumerable<Category> categories = await _repo.GetCategoriesAsync();
+            return Json(categories);
+        }
+
+        [HttpGet]
+        [Route("company")]
+        [Route("company/{id}")]
         public async Task<JsonResult> GetCompany(int id)
         {
             return await Task.Run(() =>
@@ -61,44 +59,20 @@ namespace RecycleProject.Controllers
         }
 
         [HttpGet]
-        [Route("get_companies")]
+        [Route("companies")]
         public async Task<JsonResult> GetCompanies()
         {
-            return await Task.Run(() =>
-            {
-                var companies = _repo.GetCompanies();
-                return Json(companies);
-            });
+            IEnumerable<Company> currentCompany = await _repo.GetCompaniesAsync();
+            return Json(currentCompany);
         }
 
         [HttpPost]
-        [Route("set_point")]
-        public async Task<JsonResult> SetPoint(string result)
+        [Route("add_category")]
+        public JsonResult AddCategory([FromBody] Category category)
         {
-            return await Task.Run(() =>
-            {
-                var point = JsonConvert.DeserializeObject<Point>(result);
-                if (point == null)
-                    throw new Exception("Error Recycle Point POST");
+            category = _repo.AddCategory(category);
 
-                _repo.AddRecyclePoint(point);
-                return Json(point);
-            });
-        }
-
-        [HttpPost]
-        [Route("set_company")]
-        public async Task<JsonResult> SetCompany(string result)
-        {
-            return await Task.Run(() =>
-            {
-                var company = JsonConvert.DeserializeObject<Company>(result);
-                if (company == null)
-                    throw new Exception("Error Recycle Company POST");
-
-                _repo.AddCompany(company);
-                return Json(company);
-            });
+            return Json(Ok(category));
         }
     }
 }

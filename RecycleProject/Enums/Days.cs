@@ -5,34 +5,34 @@ namespace RecycleProject.Enums
     [Flags]
     public enum Days
     {
-        None = 0x00,
+        None = 0,
         /// <summary>
         /// Понедельник
         /// </summary>
-        Monday = 0x01,
+        Monday = 1 << 0,
         /// <summary>
         /// Вторник
         /// </summary>
-        Tuesday = 0x02,
+        Tuesday = 1 << 1,
         /// <summary>
         /// Среда
         /// </summary>
-        Wednesday = 0x04,
+        Wednesday = 1 << 2,
         /// <summary>
         /// Четверг
         /// </summary>
-        Thursday = 0x08,
+        Thursday = 1 << 3,
         /// <summary>
         /// Пятница
         /// </summary>
-        Friday = 0x10,
+        Friday = 1 << 4,
         /// <summary>
         /// Суббота
         /// </summary>
-        Saturday = 0x20,
+        Saturday = 1 << 5,
         /// <summary>
         /// Воскресенье
         /// </summary>
-        Sunday = 0x40
+        Sunday = 1 << 6
     }
 }
