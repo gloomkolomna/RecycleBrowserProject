@@ -11,7 +11,7 @@ namespace RecycleProject
 {
     internal class Repository : IRepository
     {
-        private RecycleContext _dbContext;
+        private readonly RecycleContext _dbContext;
 
         public Repository(RecycleContext dbContext)
         {

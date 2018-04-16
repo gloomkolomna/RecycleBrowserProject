@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RecycleProject.Interfaces.Models;
 using RecycleProject.Model.Entity;
 
 namespace RecycleProject

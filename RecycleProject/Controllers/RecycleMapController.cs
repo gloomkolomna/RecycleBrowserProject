@@ -12,7 +12,8 @@ namespace RecycleProject.Controllers
     [Route("api/recycle_map")]
     public class RecycleMapController : Controller
     {
-        private IRepository _repo;
+        private readonly IRepository _repo;
+
         public RecycleMapController(IRepository repo)
         {
             _repo = repo;

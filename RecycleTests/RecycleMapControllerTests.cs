@@ -21,7 +21,7 @@ namespace RecycleTests
         public RecycleMapControllerTests()
         {
             // Arrange
-            _server = new TestServer(new WebHostBuilder()
+            _server = new TestServer(new WebHostBuilder()                
                 .UseStartup<Startup>());
             _client = _server.CreateClient();
         }
