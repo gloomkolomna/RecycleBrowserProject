@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using RecycleProject.Enums;
+using RecycleProject.Enums.Model;
 using RecycleProject.Interfaces.Models;
 using System.Collections.Generic;
 

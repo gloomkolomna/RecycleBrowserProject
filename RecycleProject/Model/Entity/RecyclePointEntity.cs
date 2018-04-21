@@ -1,4 +1,4 @@
-﻿using RecycleProject.Enums;
+﻿using RecycleProject.Enums.Model;
 using RecycleProject.Interfaces.Models;
 using RecycleProject.Interfaces.Models.Entity;
 using System.Collections.Generic;

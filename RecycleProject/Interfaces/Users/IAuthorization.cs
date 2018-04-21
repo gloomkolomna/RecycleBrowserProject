@@ -1,4 +1,4 @@
-﻿using RecycleProject.Enums;
+﻿using RecycleProject.Enums.Autenticate;
 
 namespace RecycleProject.Interfaces.Model
 {
@@ -6,6 +6,6 @@ namespace RecycleProject.Interfaces.Model
     {
         string Token { get; set; }
         string UserId { get; set; }
-        AuthType AuthorizationType { get; set; }
+        //BaseRole AuthorizationType { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RecycleProject.Enums
+namespace RecycleProject.Enums.Model
 {
     [Flags]
     public enum Days
