@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace RecycleProject.Model.Authenticate.JWT
@@ -22,13 +21,14 @@ namespace RecycleProject.Model.Authenticate.JWT
             ThrowIfInvalidOptions(_jwtOptions);
         }
 
-        public ClaimsIdentity GenerateClaimsIdentity(IdentityUser user)
+        public ClaimsIdentity GenerateClaimsIdentity(IEnumerable<Claim> claims)
         {
-            var claims = new List<Claim>
+            
+            /*var claims = new List<Claim>
             {
                 new Claim("id", user.Id),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, "User")
-            };
+            };*/
 
             ClaimsIdentity claimsIdentity =  new ClaimsIdentity(
                 claims,
@@ -44,16 +44,16 @@ namespace RecycleProject.Model.Authenticate.JWT
             {
                  new Claim(JwtRegisteredClaimNames.Sub, userName),
                  new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
-                 new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
-                 identity.FindFirst(ClaimsIdentity.DefaultRoleClaimType),
-                 identity.FindFirst("id")
+                 new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64)
             };
+
+            identity.AddClaims(claims);
 
             // Create the JWT security token and encode it.
             var jwt = new JwtSecurityToken(
                 issuer: _jwtOptions.Issuer,
                 audience: _jwtOptions.Audience,
-                claims: claims,
+                claims: identity.Claims,
                 notBefore: _jwtOptions.NotBefore,
                 expires: _jwtOptions.Expiration,
                 signingCredentials: _jwtOptions.SigningCredentials);
@@ -67,7 +67,7 @@ namespace RecycleProject.Model.Authenticate.JWT
         {
             var response = new
             {
-                id = identity.Claims.FirstOrDefault(c => c.Type == "id").Value,
+                id = identity.Claims.FirstOrDefault(c => c.Type == "id")?.Value,
                 auth_token = await GenerateEncodedToken(userName, identity),
                 expires_in = _jwtOptions.ValidFor * 60
             };
