@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using RecycleProject.Enums.Autenticate;
+using RecycleProject.Interfaces.Authenticate;
+using RecycleProject.Interfaces.Authenticate.Jwt;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
-using RecycleProject.Enums.Autenticate;
 using System.Security.Claims;
-using RecycleProject.Interfaces.Authenticate.Jwt;
-using Newtonsoft.Json;
-using RecycleProject.Interfaces.Authenticate;
+using System.Threading.Tasks;
 
 namespace RecycleProject.Controllers
 {
@@ -41,15 +40,6 @@ namespace RecycleProject.Controllers
                         .Wait();
                 }
             }
-        }
-
-        [Authorize(Roles = "Administrator")]
-        [HttpGet]
-        [Route("users")]
-        public JsonResult GetUsers()
-        {
-            var u = _userManager.Users.ToList();
-            return Json(Ok(u));
         }
 
         [Authorize(Roles = "Administrator")]
@@ -204,7 +194,7 @@ namespace RecycleProject.Controllers
             return Json(createUserResult);
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize]
         [HttpPost]
         [Route("signout")]
         public JsonResult SignOut()
