@@ -1,5 +1,4 @@
 ﻿using RecycleProject.Interfaces.Models;
-using RecycleProject.Model.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace RecycleProject.Model
 {
-    public class Location : ILocation
+    public class Contact: IContact
     {
         public int Id { get; set; }
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
+        public string Phone { get; set; }
+        public string Web { get; set; }
+        public string Email { get; set; }
+        public IAddress Address { get; set; }
     }
 }

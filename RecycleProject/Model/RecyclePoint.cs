@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using RecycleProject.Enums.Model;
+using RecycleProject.Interfaces.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RecycleProject.Model
 {
-    public class RecyclePoint
+    public class RecyclePoint: IRecyclePoint
     {
-        public RecyclePoint()
-        {
-
-        }
-
-        public string Name { get; set; }
-        public Location Location { get; set; }
-        public string Description { get; set; }
+        public int Id { get; set; }
+        public ILocation Location { get; set; }
+        public IEnumerable<ICategory> Categories { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Days WorkDays { get; set; }
+        public ICompany Company { get; set; }
     }
 }
