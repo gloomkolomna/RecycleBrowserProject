@@ -61,6 +61,14 @@ namespace RecycleProject
                 SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256)
             };
 
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                        .RequireAuthenticatedUser()
+                        .Build());
+            });
+            
             // Configure JwtIssuerOptions
             services.Configure<JwtIssuerOptions>(options =>
             {
