@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,10 +34,10 @@ namespace RecycleProject
         {
             services.AddMvc();
 
-            services.AddDbContext<IdentityContext>(options => options.UseMySQL("Server=localhost;database=users;user=root;password=root"));
+            services.AddDbContext<IdentityContext>(options => options.UseMySQL(Configuration.GetConnectionString("ManageDbConnection")));
             // ("Server=localhost;database=users;user=root;password=root"));
             // (Configuration.GetConnectionString("ManageDbConnection")));
-            services.AddDbContextPool<RecycleContext>(options => options.UseMySQL("Server=localhost;database=recycle;user=root;password=root"));
+            services.AddDbContextPool<RecycleContext>(options => options.UseMySQL(Configuration.GetConnectionString("RecycleDbConnection")));
             // ("Server=localhost;database=recycle;user=root;password=root"));
             // (Configuration.GetConnectionString("RecycleDbConnection")));
 

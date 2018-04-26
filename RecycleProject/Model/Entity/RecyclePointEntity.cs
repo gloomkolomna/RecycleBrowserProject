@@ -60,10 +60,10 @@ namespace RecycleProject.Model.Entity
             {
                 relList.Add(new PointCategoryRelationship
                 {
-                    RecyclePoint = point,
                     RecyclePointId = point.Id,
-                    Category = (CategoryEntity)category,
-                    CategoryId = category.Id
+                    RecyclePoint = point,
+                    CategoryId = category.Id,
+                    Category = (CategoryEntity)category
                 });
             });
 

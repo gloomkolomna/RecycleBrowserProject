@@ -39,6 +39,11 @@ namespace RecycleProject
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<CompanyEntity>(entity => entity.Property(m => m.UserId).HasMaxLength(85));
+
+            modelBuilder.Entity<CompanyEntity>()
+            .HasIndex(c => c.UserId);
+
             base.OnModelCreating(modelBuilder);
         }
         

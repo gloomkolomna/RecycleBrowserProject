@@ -19,7 +19,7 @@ namespace RecycleProject.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        RecyclePoint GetRecyclePoint(int id);
+        Task<RecyclePoint> GetRecyclePointAsync(int id);
 
         /// <summary>
         /// Получение списка всех зарегестрированных компаний
@@ -28,11 +28,17 @@ namespace RecycleProject.Interfaces
         Task<IEnumerable<Company>> GetCompaniesAsync();
 
         /// <summary>
+        /// Получение списка всех зарегестрированных компаний конкретного пользователя
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Company>> GetCompaniesAsync(string userId);
+
+        /// <summary>
         /// Получение компании по уникальному идентификатору
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Company GetCompany(int id);
+        Task<Company> GetCompanyAsync(int id);
 
         /// <summary>
         /// Добавление новой точки приёма
