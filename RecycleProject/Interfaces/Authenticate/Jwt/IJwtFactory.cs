@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;

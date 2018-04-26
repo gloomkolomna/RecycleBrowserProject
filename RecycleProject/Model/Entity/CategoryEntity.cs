@@ -1,5 +1,4 @@
-﻿using RecycleProject.Interfaces.Models;
-using RecycleProject.Interfaces.Models.Entity;
+﻿using RecycleProject.Interfaces.Models.Entity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

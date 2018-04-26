@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RecycleProject.Enums;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RecycleProject.Enums.Autenticate;
 using RecycleProject.Interfaces;
-using RecycleProject.Interfaces.Models;
 using RecycleProject.Model;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RecycleProject.Controllers
@@ -24,27 +26,25 @@ namespace RecycleProject.Controllers
         [Route("recyclepoint/{id}")]
         public async Task<JsonResult> GetPoint(int id)
         {
-            return await Task.Run(() =>
-            {
-                RecyclePoint currentPoint = _repo.GetRecyclePoint(id);
-                return Json(currentPoint);
-            });
+            var point = await _repo.GetRecyclePointAsync(id);
+            return Json(Ok(point));
         }
 
         [HttpGet]
         [Route("recyclepoints")]
         public async Task<JsonResult> GetPoints()
         {
-            IEnumerable<RecyclePoint> points = await _repo.GetRecyclePointsAsync();
-            return Json(points);
+            var points = await _repo.GetRecyclePointsAsync();
+            return Json(Ok(points));
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator, Manager")]
         [Route("categories")]
         public async Task<JsonResult> GetCategories()
         {
-            IEnumerable<Category> categories = await _repo.GetCategoriesAsync();
-            return Json(categories);
+            var categories = await _repo.GetCategoriesAsync();
+            return Json(Ok(categories));
         }
 
         [HttpGet]
@@ -52,22 +52,38 @@ namespace RecycleProject.Controllers
         [Route("company/{id}")]
         public async Task<JsonResult> GetCompany(int id)
         {
-            return await Task.Run(() =>
-            {
-                Company currentCompany = _repo.GetCompany(id);
-                return Json(currentCompany);
-            });
+            Company currentCompany = await _repo.GetCompanyAsync(id);
+            return Json(Ok(currentCompany));
         }
 
         [HttpGet]
-        [Route("companies")]
+        [Authorize(Roles = "Administrator, Manager")]
+        [Route("all_companies")]
         public async Task<JsonResult> GetCompanies()
         {
-            IEnumerable<Company> currentCompany = await _repo.GetCompaniesAsync();
-            return Json(currentCompany);
+            var currentCompanies = await _repo.GetCompaniesAsync();
+            return Json(Ok(currentCompanies));
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator, Manager")]
+        [Route("user_companies/{id?}")]
+        public async Task<JsonResult> GetUserCompanies(string id = null)
+        {
+            ClaimsPrincipal user = HttpContext.User;
+            IEnumerable<Claim> userClaims = user.Claims;
+            string userId = string.Empty;
+
+            if (!string.IsNullOrEmpty(id) && user.IsInRole(BaseRole.Administrator.ToString()))
+                userId = id;
+            else userId = userClaims.FirstOrDefault(claim => claim.Type == "id")?.Value;
+
+            var currentCompany = await _repo.GetCompaniesAsync(userId);
+            return Json(Ok(currentCompany));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator, Manager")]
         [Route("add_category")]
         public JsonResult AddCategory([FromBody] Category category)
         {

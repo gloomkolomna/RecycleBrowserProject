@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RecycleProject.Interfaces.Models.Entity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using RecycleProject.Interfaces.Models;
-using RecycleProject.Interfaces.Models.Entity;
 
 namespace RecycleProject.Model.Entity
 {
-    [Table("Address")]
+    [Table("address")]
     internal class AddressEntity : IAddressEntity
     {
         [Key]

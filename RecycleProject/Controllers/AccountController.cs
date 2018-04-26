@@ -74,7 +74,6 @@ namespace RecycleProject.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        [AllowAnonymous]
         [HttpPost]
         [Route("add_user")]
         public async Task<JsonResult> AddUserAsync([FromBody] User user)
@@ -126,8 +125,14 @@ namespace RecycleProject.Controllers
             if (await _userManager.CheckPasswordAsync(userToVerify, password))
             {
                 var claims = await _userManager.GetClaimsAsync(userToVerify);
+                userToVerify.AccessFailedCount = 0;
+                await _userManager.UpdateAsync(userToVerify);
                 return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(claims));
             }
+
+            userToVerify.AccessFailedCount++;
+
+            await _userManager.UpdateAsync(userToVerify);
 
             // Credentials are invalid, or account doesn't exist
             return await Task.FromResult<ClaimsIdentity>(null);
@@ -194,7 +199,6 @@ namespace RecycleProject.Controllers
             return Json(createUserResult);
         }
 
-        [Authorize]
         [HttpPost]
         [Route("signout")]
         public JsonResult SignOut()

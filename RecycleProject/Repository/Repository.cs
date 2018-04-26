@@ -91,16 +91,31 @@ namespace RecycleProject
             return result;
         }
 
-        public Company GetCompany(int id)
+        public async Task<IEnumerable<Company>> GetCompaniesAsync(string userId)
         {
-            return _dbContext
+            var companies = await _dbContext
+                .Companies
+                .Include(contact => contact.Contact)
+                .ThenInclude(address => address.Address)
+                .Where(company => company.UserId.Equals(userId, System.StringComparison.CurrentCultureIgnoreCase))
+                .ToListAsync();
+
+            var result = companies
+                .Select(company => (Company)company);
+
+            return result;
+        }
+
+        public async Task<Company> GetCompanyAsync(int id)
+        {
+            return await _dbContext
                 .Companies
                 .Include(p => p.Contact)
                 .Include(p => p.Contact.Address)
-                .FirstOrDefault(item => item.Id == id);
+                .FirstOrDefaultAsync(item => item.Id == id);
         }
 
-        public RecyclePoint GetRecyclePoint(int id)
+        public async Task<RecyclePoint> GetRecyclePointAsync(int id)
         {
             var r = _dbContext
                 .RecyclePoints
@@ -110,8 +125,8 @@ namespace RecycleProject
                 .Include(point => point.Company)
                 .ThenInclude(company => company.Contact)
                 .ThenInclude(contact => contact.Address)
-                .FirstOrDefault(item => item.Id == id);
-            return r;
+                .FirstOrDefaultAsync(item => item.Id == id);
+            return await r;
         }
 
         public async Task<IEnumerable<RecyclePoint>> GetRecyclePointsAsync()
@@ -132,7 +147,11 @@ namespace RecycleProject
 
         public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {
-            return await _dbContext.Categories.Select(category => (Category)category).ToListAsync();
+            return await _dbContext
+                .Categories
+                .Select(category => (Category)category)
+                .ToListAsync()
+                .ConfigureAwait(false);
         }
 
         public Category AddCategory(Category category)
