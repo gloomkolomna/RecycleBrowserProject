@@ -199,7 +199,6 @@ namespace RecycleProject.Controllers
             return Json(createUserResult);
         }
 
-        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [Route("signout")]
         public JsonResult SignOut()
