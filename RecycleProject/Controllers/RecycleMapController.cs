@@ -22,7 +22,6 @@ namespace RecycleProject.Controllers
         }
 
         [HttpGet]
-        [Route("recyclepoint")]
         [Route("recyclepoint/{id}")]
         public async Task<JsonResult> GetPoint(int id)
         {
@@ -48,7 +47,6 @@ namespace RecycleProject.Controllers
         }
 
         [HttpGet]
-        [Route("company")]
         [Route("company/{id}")]
         public async Task<JsonResult> GetCompany(int id)
         {
