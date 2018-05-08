@@ -67,9 +67,10 @@ namespace RecycleProject.Model.Authenticate.JWT
         {
             var response = new
             {
+                success = true,
                 id = identity.Claims.FirstOrDefault(c => c.Type == "id")?.Value,
                 auth_token = await GenerateEncodedToken(userName, identity),
-                expires_in = _jwtOptions.ValidFor * 60
+                expires_in = _jwtOptions.ValidFor * 60,
             };
 
             return JsonConvert.SerializeObject(response, serializerSettings);
