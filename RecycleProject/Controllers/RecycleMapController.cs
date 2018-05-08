@@ -38,7 +38,6 @@ namespace RecycleProject.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrator, Manager")]
         [Route("categories")]
         public async Task<JsonResult> GetCategories()
         {

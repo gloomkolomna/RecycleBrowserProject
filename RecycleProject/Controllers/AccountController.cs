@@ -89,40 +89,38 @@ namespace RecycleProject.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("signin")]
-        public async Task<JsonResult> SignInAsync([FromBody] dynamic userInfo)
+        public async Task<JsonResult> SignInAsync([FromBody] User user)
         {
             if (!ModelState.IsValid)
             {
                 return Json(ModelState);
             }
 
-            var userName = userInfo.Name.ToString();
-            var userPassword = userInfo.Password.ToString();
-
-            var identity = await GetClaimsIdentity(userName, userPassword);
+            var identity = await GetClaimsIdentity(user);
 
             if (identity == null)
             {
-                return Json(new { error = "Login failure", message = "Invalid username or password" });
+                return Json(new { success = false, error = "Login failure", message = "Invalid username or password" });
             }
 
-            var jwt = await _jwtFactory.GenerateJwt(userName, identity, new JsonSerializerSettings { Formatting = Formatting.Indented });
+            var jwt = await _jwtFactory.GenerateJwt(user.UserName, identity, new JsonSerializerSettings { Formatting = Formatting.Indented });
 
             return Json(Ok(jwt));
         }
 
-        private async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)
+        private async Task<ClaimsIdentity> GetClaimsIdentity(User user)
         {
-            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Password))
                 return await Task.FromResult<ClaimsIdentity>(null);
 
             // get the user to verifty
-            var userToVerify = await _userManager.FindByNameAsync(userName);
+            var userToVerify = await _userManager.FindByNameAsync(user.UserName) ??
+                await _userManager.FindByEmailAsync(user.UserName);
 
             if (userToVerify == null) return await Task.FromResult<ClaimsIdentity>(null);
 
             // check the credentials
-            if (await _userManager.CheckPasswordAsync(userToVerify, password))
+            if (await _userManager.CheckPasswordAsync(userToVerify, user.Password))
             {
                 var claims = await _userManager.GetClaimsAsync(userToVerify);
                 userToVerify.AccessFailedCount = 0;
@@ -158,13 +156,13 @@ namespace RecycleProject.Controllers
             IdentityUser newUser = await _userManager.FindByNameAsync(user.UserName) ??
                 await _userManager.FindByEmailAsync(user.Email);
 
-            if (newUser != null) return Json(new { error = "Creating user with error.", message = "User already exists." });
+            if (newUser != null) return Json(Ok(new { success = false, error = "Creating user with error.", message = "User already exists." }));
 
             newUser = user;
 
             var rolesExists = user.Roles.All(role => _roleManager.RoleExistsAsync(role).Result);
 
-            if (!rolesExists) return Json(new { error = "Creating user with error.", message = "Could not find the required role(s)." });
+            if (!rolesExists) return Json(Ok(new { success = false, error = "Creating user with error.", message = "Could not find the required role(s)." }));
 
             var createUserResult = await _userManager.CreateAsync(newUser, user.Password);
 
@@ -176,7 +174,7 @@ namespace RecycleProject.Controllers
                 {
                     var deleteUserResult = await _userManager.DeleteAsync(newUser);
 
-                    return Json(new { error = "User creation failed.", message = "Could not find the required role(s)." });
+                    return Json(Ok(new { success = false, error = "User creation failed.", message = "Could not find the required role(s)." }));
                 }
 
                 var claims = new List<Claim>
@@ -192,14 +190,15 @@ namespace RecycleProject.Controllers
                 {
                     var deleteUserResult = await _userManager.DeleteAsync(newUser);
 
-                    return Json(new { error = "User creation failed.", message = "Could not add additional information." });
+                    return Json(Ok(new { success = false, error = "User creation failed.", message = "Could not add additional information." }));
                 }
             }
 
-            return Json(createUserResult);
+            return Json(Ok(new { success = createUserResult.Succeeded, error = string.Join(';', createUserResult.Errors), message = createUserResult.Errors.Count() > 0 ? "Error while user creation." : string.Empty }));
         }
 
         [HttpPost]
+        [Authorize]
         [Route("signout")]
         public JsonResult SignOut()
         {

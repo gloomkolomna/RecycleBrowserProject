@@ -83,6 +83,7 @@ namespace RecycleProject
                 .Companies
                 .Include(contact => contact.Contact)
                 .ThenInclude(address => address.Address)
+                .Select(company => (Company)company)
                 .ToListAsync();
 
             var result = companies
