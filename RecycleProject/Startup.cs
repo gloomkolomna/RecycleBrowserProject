@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,11 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RecycleProject.Interfaces;
 using RecycleProject.Interfaces.Authenticate.Jwt;
+using RecycleProject.Interfaces.DI;
+using RecycleProject.Interfaces.Models;
+using RecycleProject.Model;
 using RecycleProject.Model.Authenticate.JWT;
+using RecycleProject.Model.DI;
 using System;
 using System.Text;
 
@@ -33,6 +38,20 @@ namespace RecycleProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddTransient<IAddress, Address>();
+            services.AddTransient<ICategory, Category>();
+            services.AddTransient<ICompany, Company>();
+            services.AddTransient<IContact, Contact>();
+            services.AddTransient<ILocation, Location>();
+            services.AddTransient<IRecyclePoint, RecyclePoint>();
+
+            services.TryAddSingleton<IDIMeta>(s =>
+            {
+                return new DIMetaDefault(services);
+            });
+
+            services.AddTransient<IConfigureOptions<MvcJsonOptions>, JsonOptionsSetup>();
 
             services.AddDbContext<IdentityContext>(options => options.UseMySQL(Configuration.GetConnectionString("ManageDbConnection")));
             // ("Server=localhost;database=users;user=root;password=root"));

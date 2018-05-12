@@ -29,46 +29,62 @@ namespace RecycleProject
             }
         }
 
-        public RecyclePoint ModifityRecyclePoint(RecyclePoint point)
+        public IRecyclePoint ModifyRecyclePoint(IRecyclePoint point)
         {
-            var oldPoint = _dbContext.RecyclePoints.Find(point);
+            var oldPoint = _dbContext.RecyclePoints.Find(point.Id);
             if (oldPoint != null)
             {
-                _dbContext.RecyclePoints.Remove(point);
-                _dbContext.RecyclePoints.Add(point);
+                oldPoint = (RecyclePoint)point;
 
                 _dbContext.SaveChanges();
 
-                return point;
+                return (RecyclePoint)oldPoint;
             }
-
             return null;
         }
 
-        public Company ModifityCompany(Company company)
+        public ICompany ModifyCompany(ICompany company)
         {
-            var oldCompany = _dbContext.Companies.Find(company);
+            var oldCompany = _dbContext.Companies.Find(company.Id);
             if (oldCompany != null)
             {
-                _dbContext.Companies.Remove(company);
-                _dbContext.Companies.Add(company);
+                oldCompany = (CompanyEntity)company;
 
                 _dbContext.SaveChanges();
 
-                return company;
+                return (Company)oldCompany;
             }
 
             return null;
         }
 
-        public void AddRecyclePoint(RecyclePoint point)
+        public async Task<IRecyclePoint> AddRecyclePointAsync(IRecyclePoint point)
         {
-            var tmpPoint = _dbContext.RecyclePoints.Find(point);
-            if (tmpPoint == null)
+            if (point.Id == 0)
             {
-                _dbContext.RecyclePoints.Add(point);
-                _dbContext.SaveChanges();
+                var castPoint = point as RecyclePoint;
+
+                var pointEntity = _dbContext.RecyclePoints.Add(castPoint);
+
+                int result = await _dbContext.SaveChangesAsync();
+
+                if (result > 0)
+                {
+                    var tmp = await _dbContext
+                        .RecyclePoints
+                        .Include(item => item.Company)
+                        .ThenInclude(item => item.Contact)
+                        .ThenInclude(item => item.Address)
+                        .Include(item => item.Location)
+                        .Include(item => item.Rels)
+                        .ThenInclude(item => item.Category)
+                        .FirstOrDefaultAsync(item => item.Id == pointEntity.Entity.Id);
+
+                    return (RecyclePoint)tmp;
+                }
             }
+
+            return null;
         }
 
         public void Dispose()
@@ -139,7 +155,9 @@ namespace RecycleProject
                 .Include(loc => loc.Location)
                 .Include(company => company.Company)
                 .ThenInclude(contact => contact.Contact)
-                .ThenInclude(address => address.Address).ToListAsync();
+                .ThenInclude(address => address.Address)
+                .ToListAsync()
+                .ConfigureAwait(false);
 
             var p = res.Select(point => (RecyclePoint)point);
 
@@ -155,21 +173,22 @@ namespace RecycleProject
                 .ConfigureAwait(false);
         }
 
-        public Category AddCategory(Category category)
+        public async Task<ICategory> AddCategoryAsync(ICategory category)
         {
             if (category == null) return null;
 
             if (category.Id == 0)
             {
-                var tmp = _dbContext.Categories.Add(category);
-                int i = _dbContext.SaveChanges();
+                var tmpCat = category as Category;
+                var tmp = await _dbContext.Categories.AddAsync(tmpCat);
+                int i = await _dbContext.SaveChangesAsync();
                 if (i > 0)
                 {
-                    category = tmp.Entity;
+                    return (Category)tmp.Entity;
                 }
             }
 
-            return category;
+            return null;
         }
     }
 }

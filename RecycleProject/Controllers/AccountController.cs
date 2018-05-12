@@ -100,7 +100,7 @@ namespace RecycleProject.Controllers
 
             if (identity == null)
             {
-                return Json(new { success = false, error = "Login failure", message = "Invalid username or password" });
+                return Json(new { success = false, error = "Login failure.", message = "Invalid username or password" });
             }
 
             var jwt = await _jwtFactory.GenerateJwt(user.UserName, identity, new JsonSerializerSettings { Formatting = Formatting.Indented });

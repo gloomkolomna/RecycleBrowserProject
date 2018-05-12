@@ -24,7 +24,7 @@ namespace RecycleProject.Model.Entity
                 Phone = contact.Phone,
                 Web = contact.Web,
                 Email = contact.Email,
-                Address = (AddressEntity)contact.Address
+                Address = (Address)contact.Address
             };
 
             return contct;

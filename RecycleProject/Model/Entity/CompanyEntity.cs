@@ -23,7 +23,7 @@ namespace RecycleProject.Model.Entity
                 Id = company.Id,
                 Name = company.Name,
                 Description = company.Description,
-                Contact = (ContactEntity)company.Contact
+                Contact = (Contact)company.Contact
             };
 
             return cmpn;

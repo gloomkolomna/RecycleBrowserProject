@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RecycleProject.Enums.Autenticate;
 using RecycleProject.Interfaces;
+using RecycleProject.Interfaces.Models;
 using RecycleProject.Model;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,11 +83,20 @@ namespace RecycleProject.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrator, Manager")]
         [Route("add_category")]
-        public JsonResult AddCategory([FromBody] Category category)
+        public async Task<JsonResult> AddCategoryAsync([FromBody] ICategory category)
         {
-            category = _repo.AddCategory(category);
+            category = await _repo.AddCategoryAsync(category);
 
             return Json(Ok(category));
+        }
+
+        [HttpPost]        
+        [Route("add_point")]
+        public async Task<JsonResult> AddPointAsync([FromBody] IRecyclePoint point)
+        {
+            point = await _repo.AddRecyclePointAsync(point);
+
+            return Json(Ok(point));
         }
     }
 }

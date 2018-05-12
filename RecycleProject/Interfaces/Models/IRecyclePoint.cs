@@ -1,5 +1,6 @@
 ﻿using RecycleProject.Enums;
 using RecycleProject.Interfaces.Models.Base;
+using RecycleProject.Model;
 using System.Collections.Generic;
 
 namespace RecycleProject.Interfaces.Models

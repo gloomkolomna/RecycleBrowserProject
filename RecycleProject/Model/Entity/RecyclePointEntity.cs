@@ -14,7 +14,7 @@ namespace RecycleProject.Model.Entity
         [Key]
         public int Id { get; set; }
         public LocationEntity Location { get; set; }
-        public IEnumerable<PointCategoryRelationship> Rels { get; set; }
+        public ICollection<PointCategoryRelationship> Rels { get; set; }
         public Days WorkDays { get; set; }
         public CompanyEntity Company { get; set; }
 
@@ -25,10 +25,10 @@ namespace RecycleProject.Model.Entity
             var pnt = new RecyclePointEntity
             {
                 Id = point.Id,
-                Location = (LocationEntity)point.Location,
+                Location = (Location)point.Location,
                 WorkDays = point.WorkDays,
-                Company = (CompanyEntity)point.Company,
-                Rels = MappingCategory(point.Categories, point)
+                Company = (Company)point.Company,
+                Rels = MappingCategory(point)
             };
 
             return pnt;
@@ -50,22 +50,20 @@ namespace RecycleProject.Model.Entity
             return pnt;
         }
 
-        private static IEnumerable<PointCategoryRelationship> MappingCategory(IEnumerable<ICategory> categories, RecyclePoint point)
+        private static ICollection<PointCategoryRelationship> MappingCategory(IRecyclePoint point)
         {
             var relList = new List<PointCategoryRelationship>();
 
-            if (categories == null || !categories.Any()) return relList;
+            if (point.Categories == null || !point.Categories.Any()) return relList;
 
-            categories.AsParallel().ForAll(category =>
+            foreach(var cat in point.Categories)
             {
                 relList.Add(new PointCategoryRelationship
                 {
                     RecyclePointId = point.Id,
-                    RecyclePoint = point,
-                    CategoryId = category.Id,
-                    Category = (CategoryEntity)category
+                    CategoryId = cat.Id,
                 });
-            });
+            }
 
             return relList;
         }

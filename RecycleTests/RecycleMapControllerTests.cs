@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Xunit;
 using Newtonsoft.Json.Linq;
+using RecycleProject.Interfaces.Models;
 
 namespace RecycleTests
 {
@@ -62,9 +63,33 @@ namespace RecycleTests
                 var responseString = await response.Content.ReadAsStringAsync();
                 dynamic result = JObject.Parse(responseString);
                 responseModel = JsonConvert.DeserializeObject<Category>(result.value.ToString());
+                Assert.NotEqual(category.Id, responseModel?.Id);
+            }
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task AddPointTestAsync()
+        {
+            RecyclePoint responseModel = null;
+
+            var point = new RecyclePoint
+            {
+                Location = new Location() { Latitude = 55.69, Longitude = 33.66 }
+            };
+
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(point));
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            var response = await _client.PostAsync("api/recycle_map/add_point", content);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK && response.Content != null && response.Content.Headers.ContentLength > 0)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                dynamic result = JObject.Parse(responseString);
+                responseModel = JsonConvert.DeserializeObject<RecyclePoint>(result.value.ToString());
             }
 
-            Assert.NotEqual(category.Id, responseModel?.Id);
+            Assert.NotEqual(point.Id, responseModel?.Id);
         }
     }
 }

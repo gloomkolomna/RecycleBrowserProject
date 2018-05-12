@@ -44,7 +44,7 @@ namespace RecycleProject.Interfaces
         /// Добавление новой точки приёма
         /// </summary>
         /// <param name="point"></param>
-        void AddRecyclePoint(RecyclePoint point);
+        Task<IRecyclePoint> AddRecyclePointAsync(IRecyclePoint point);
 
         /// <summary>
         /// Добавление новой компании
@@ -57,14 +57,14 @@ namespace RecycleProject.Interfaces
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        RecyclePoint ModifityRecyclePoint(RecyclePoint point);
+        IRecyclePoint ModifyRecyclePoint(IRecyclePoint point);
 
         /// <summary>
         /// Изменение существующей компании
         /// </summary>
         /// <param name="company"></param>
         /// <returns></returns>
-        Company ModifityCompany(Company company);
+        ICompany ModifyCompany(ICompany company);
 
         /// <summary>
         /// Получение всех имеющихся категорий
@@ -72,6 +72,6 @@ namespace RecycleProject.Interfaces
         /// <returns></returns>
         Task<IEnumerable<Category>> GetCategoriesAsync();
 
-        Category AddCategory(Category category);
+        Task<ICategory> AddCategoryAsync(ICategory category);
     }
 }
